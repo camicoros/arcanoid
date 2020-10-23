@@ -14,16 +14,23 @@ class Paddle:
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.started = False
-        self.canvas.bind_all('<KeyPress-Return>', self.start_game)
+        self.canvas.bind_all('<KeyPress-Escape>', self.pause_game)
 
     def turn_right(self, event):
+        self.start_game(event)
         self.x = 2
 
     def turn_left(self, event):
+        self.start_game(event)
         self.x = -2
 
     def start_game(self, event):
-        self.started = True
+        if not self.started:
+            self.started = True
+
+    def pause_game(self, event):
+        self.started = not self.started
+
 
     def draw(self):
         self.canvas.move(self.id, self.x, 0)
